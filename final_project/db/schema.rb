@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812143345) do
+ActiveRecord::Schema.define(version: 20160812204454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "organization_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "articles", force: :cascade do |t|
+    t.string  "title"
+    t.string  "url"
+    t.integer "user_id"
+    t.integer "organization_id"
+  end
 
   create_table "interests", force: :cascade do |t|
     t.string   "name"
@@ -22,13 +36,28 @@ ActiveRecord::Schema.define(version: 20160812143345) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "jobs", force: :cascade do |t|
+    t.string  "title"
+    t.text    "description"
+    t.string  "url"
+    t.integer "user_id"
+    t.integer "location_id"
+  end
+
+  create_table "location_organizations", force: :cascade do |t|
+    t.integer "location_id"
+    t.integer "organization_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string  "name"
+    t.string  "city"
+    t.string  "state"
+    t.integer "zipcode"
+  end
+
   create_table "organizations", force: :cascade do |t|
-    t.string   "name"
-    t.string   "industry"
-    t.string   "location"
-    t.string   "website"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "name"
   end
 
   create_table "user_interests", force: :cascade do |t|
@@ -36,6 +65,11 @@ ActiveRecord::Schema.define(version: 20160812143345) do
     t.integer  "interest_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "user_locations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "location_id"
   end
 
   create_table "user_organizations", force: :cascade do |t|
