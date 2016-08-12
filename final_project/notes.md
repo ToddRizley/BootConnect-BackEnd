@@ -1,36 +1,19 @@
-Models
+To do Weekend
 
-User
-  name
-  user_name
-  job
-  company
-  location
-  bio
-  image
-  email_address
-  ##has many organizations
-  ##has many interests
+1. make sure models all work
+2. all relationships functional
+3. basic methods
+4. make seed data
+5. fuck wit sum tests?
+6. validations
+7. authentication
+8. error messages
 
 
+Next week:
 
-UserOrganizations
-  user_id
-  organization_id
+rails API
+    ---> controllers
+    --->views
 
-UserInterests
-  user_id
-  interest_id
-
-Interests
-  ##have many users
-  name
-  description
-
-Organization
- ##has many users
- name
- industry (drop down for type)
- website
- logo
- location (HQ?)
+components
