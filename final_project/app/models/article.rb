@@ -1,5 +1,4 @@
 class Article < ApplicationRecord
-  belongs_to :user
-  belongs_to :organization, through: :user 
+  belongs_to :user, optional: true
+  # belongs_to :organization, through: :users
 end
-
