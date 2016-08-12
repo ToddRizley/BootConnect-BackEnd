@@ -2,11 +2,6 @@ class CreateOrganizations < ActiveRecord::Migration[5.0]
   def change
     create_table :organizations do |t|
       t.string :name
-      t.string :industry
-      t.string :location
-      t.string :website
-
-      t.timestamps
     end
   end
 end
