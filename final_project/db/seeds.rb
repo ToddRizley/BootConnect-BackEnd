@@ -12,12 +12,30 @@ Job.destroy_all
 ##add associations to models!!!
 
 # create organizations
-10.times do
+20.times do
   FactoryGirl.create :organization, name: Faker::University.name
 end
 
+##create organization/location associations
+
+Location.all.each do |loc|
+  Organization.all.each do |org|
+    org.locations << loc
+    loc.organizations << org
+  end
+end
+
+##create org/user association
+Organization.all.each do |org|
+  User.all.each do |user|
+    org.users << user
+    user.organization = org
+  end
+end
+
+
 #create locations
-10.times do
+20.times do
   FactoryGirl.create(:location,
     name: Faker::Address.street_address,
     city: Faker::Address.city,
@@ -27,8 +45,10 @@ end
   end
 end
 
+
+
 #create users
-10.times do
+20.times do
   FactoryGirl.create(:user,
     name: Faker::StarWars.character,
     user_name: Faker::Internet.user_name,
@@ -40,8 +60,18 @@ end
   end
 end
 
+##create user location associations
+Location.all.each do |loc|
+  User.all.each do |user|
+    loc.users << user
+    user.locations << loc
+  end
+end
+
+
+
 #create admins
-5.times do
+10.times do
   FactoryGirl.create(:admin,
     name: Faker::Name.name
     )
@@ -56,6 +86,8 @@ Admin.all.each do |admin|
   end
 end
 
+
+
 #create articles
 20.times do
   FactoryGirl.create(:article,
@@ -65,14 +97,34 @@ end
   end
 end
 
+##create article associations
+Article.all.each do |art|
+  User.all.each do |user|
+    user.articles << art
+    art.user = user
+  end
+end
+
+
+
 #create interests
-15.times do
+20.times do
   FactoryGirl.create(:interest,
       name: Faker::Hipster.word,
       description: Faker::Hipster.paragraph
       )
   end
 end
+
+##create interest associations
+
+Interest.all.each do |interest|
+  User.all.each do |user|
+    interest.users << user
+    user.interests << interest
+  end
+end
+
 
 #create jobs
 
@@ -82,5 +134,20 @@ end
     description: Faker::Hipster.sentence,
     url: Faker::Internet.url
     )
+  end
+end
+
+##create job associations
+Job.all.each do |job|
+  User.all.each do |user|
+    job.user = user
+    user.jobs << job
+  end
+end
+
+Job.all.each do |job|
+  Location.all.each do |loc|
+    job.location = loc
+    loc.jobs << job
   end
 end
