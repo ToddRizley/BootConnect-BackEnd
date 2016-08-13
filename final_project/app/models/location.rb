@@ -6,4 +6,9 @@ class Location < ApplicationRecord
   has_many :organizations, through: :organization_locations
 
   has_many :jobs
+
+
+  def rally_all_workers
+  	self.Users.all
+  end
 end
