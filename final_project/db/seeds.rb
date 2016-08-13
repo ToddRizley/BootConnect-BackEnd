@@ -48,6 +48,14 @@ end
   end
 end
 
+##add organization to admins, add admins to orgs
+Admin.all.each do |admin|
+  Organization.all.each do |org|
+    admin.organization = org
+    org.admins << admin
+  end
+end
+
 #create articles
 20.times do
   FactoryGirl.create(:article,
