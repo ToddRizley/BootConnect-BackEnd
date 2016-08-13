@@ -9,8 +9,6 @@ Organization.destroy_all
 Interest.destroy_all
 Job.destroy_all
 
-##add associations to models!!!
-
 # create organizations
 20.times do
   FactoryGirl.create :organization, name: Faker::University.name
@@ -78,7 +76,7 @@ end
   end
 end
 
-##add organization to admins, add admins to orgs
+##create org/admin associations
 Admin.all.each do |admin|
   Organization.all.each do |org|
     admin.organization = org
@@ -97,15 +95,13 @@ end
   end
 end
 
-##create article associations
+##create article/users associations
 Article.all.each do |art|
   User.all.each do |user|
     user.articles << art
     art.user = user
   end
 end
-
-
 
 #create interests
 20.times do
@@ -116,7 +112,7 @@ end
   end
 end
 
-##create interest associations
+##create interest/user associations
 
 Interest.all.each do |interest|
   User.all.each do |user|
@@ -124,7 +120,6 @@ Interest.all.each do |interest|
     user.interests << interest
   end
 end
-
 
 #create jobs
 
@@ -137,7 +132,7 @@ end
   end
 end
 
-##create job associations
+##create job/user associations
 Job.all.each do |job|
   User.all.each do |user|
     job.user = user
@@ -145,6 +140,7 @@ Job.all.each do |job|
   end
 end
 
+#create job/location association
 Job.all.each do |job|
   Location.all.each do |loc|
     job.location = loc
