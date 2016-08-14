@@ -48,8 +48,7 @@ end
     position: Faker::Name.title,
     company: Faker::Company.name,
     bio: Faker::Hipster.paragraph,
-    email_address: Faker::Internet.email,
-    organization_id: rand(1..20)
+    email_address: Faker::Internet.email
     )
 end
 
@@ -71,10 +70,9 @@ end
 
 ##create user location associations
 Location.all.each do |loc|
-  User.all.each do |user|
-    loc.users << user
-    user.locations << loc
-  end
+  random_users = User.all.sample(2)
+  loc.users = random_users
+  random_users.each { |user| user.locations << loc }
 end
 
 ##create admin/org associtation
