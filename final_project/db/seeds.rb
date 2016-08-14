@@ -57,7 +57,7 @@ end
 10.times do
   FactoryGirl.create(:admin,
     name: Faker::Name.name,
-    emai_address: Faker::Internet.email
+    email_address: Faker::Internet.email
     )
 end
 

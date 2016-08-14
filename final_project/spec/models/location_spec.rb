@@ -12,7 +12,7 @@ describe Location do
 
 
   let!(:location) {Location.create(
-    :name => "17 Cherry Tree Lane",
+    :street => "17 Cherry Tree Lane",
     :city => "City of London",
     :state => "London",
     :zipcode => "12482",
@@ -23,8 +23,8 @@ describe Location do
   }
 
 
-  it "it has a name" do
-      expect(location.name).to eq("17 Cherry Tree Lane")
+  it "it has a street" do
+      expect(location.street).to eq("17 Cherry Tree Lane")
   end
 
   it "it has a city" do
