@@ -24,10 +24,14 @@ describe Admin do
 
   it "it has a email address" do
       expect(admin.email_address).to eq("childstar@faded.com")
+
   end
 
   it "it belongs to an organization" do
       expect(admin.organization.name).to eq("Dunder Mifflin")
   end
+<<<<<<< HEAD
+=======
 
+>>>>>>> 8b92b4e5e95443da5192568ed83da2f99302eeea
 end
