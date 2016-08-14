@@ -1,5 +1,13 @@
 require 'rails_helper'
 
+User.destroy_all
+Article.destroy_all
+Admin.destroy_all
+Location.destroy_all
+Organization.destroy_all
+Interest.destroy_all
+Job.destroy_all
+
 describe User do
   org =  Organization.create(name: "Katz Emporium of Cool Stuff")
   let!(:user) { User.create(
@@ -15,7 +23,7 @@ describe User do
   it "it has a name" do
       expect(user.name).to eq("Jeff Katz")
   end
-  
+
   it "it has a position" do
       expect(user.position).to eq("Overlord")
   end

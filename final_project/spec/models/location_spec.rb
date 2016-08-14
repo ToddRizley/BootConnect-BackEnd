@@ -1,8 +1,16 @@
 require 'rails_helper'
-##note fix organization association
+
+User.destroy_all
+Article.destroy_all
+Admin.destroy_all
+Location.destroy_all
+Organization.destroy_all
+Interest.destroy_all
+Job.destroy_all
+
 describe Location do
-  user1 = User.create(name: "Jane Banks")
-  user2 = User.create(name: "Michael Banks")
+  user1 = User.create(name: "Jane Banks", email_address: "jane@banks.com")
+  user2 = User.create(name: "Michael Banks", email_address: "michael@banks.com")
   org1 = Organization.create(name: "The Bank")
   org2 = Organization.create(name: "The Other Bank")
   job1 = Job.create(title: "Banker")

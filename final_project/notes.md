@@ -3,8 +3,8 @@ does location need a name??
 
 To do Weekend
 
-Association tests not quite working w/ has many through relationships 
-
+Association tests not quite working w/ has many through relationships
+Update tests to reflect schema changes!
 
 <!-- 1. make sure models all work --- done -->
 <!-- 2. all relationships functional --> done
