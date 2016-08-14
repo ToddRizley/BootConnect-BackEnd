@@ -8,5 +8,5 @@ class User < ApplicationRecord
   has_many :jobs
   has_many :articles
 
-  belongs_to :organization
+  belongs_to :organization, optional: true
 end
