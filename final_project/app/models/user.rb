@@ -12,6 +12,9 @@ class User < ApplicationRecord
 
   #class methods 
 
+  def name=(name)
+    self.name = name
+  end
   def self.find_by_interest(user_interest)
   	User.all.find_by(interest: user_interest)
   end

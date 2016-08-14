@@ -44,7 +44,7 @@ end
 #create users
 20.times do
   FactoryGirl.create(:user,
-    name: Faker::StarWars.character,
+    name: Faker::Name.name,
     user_name: Faker::Internet.user_name,
     position: Faker::Name.title,
     company: Faker::Company.name,
