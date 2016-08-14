@@ -9,8 +9,6 @@ Organization.destroy_all
 Interest.destroy_all
 Job.destroy_all
 
-
-
 # create organizations
 20.times do
   FactoryGirl.create :organization, name: Faker::University.name
