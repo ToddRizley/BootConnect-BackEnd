@@ -9,6 +9,8 @@ Organization.destroy_all
 Interest.destroy_all
 Job.destroy_all
 
+
+
 # create organizations
 20.times do
   FactoryGirl.create :organization, name: Faker::University.name
@@ -21,8 +23,8 @@ end
     description: Faker::Hipster.paragraph
     )
 end
-#create jobs
 
+#create jobs
 20.times do
   FactoryGirl.create(:job,
     title: Faker::Name.title,
@@ -49,7 +51,8 @@ end
     position: Faker::Name.title,
     company: Faker::Company.name,
     bio: Faker::Hipster.paragraph,
-    email_address: Faker::Internet.email
+    email_address: Faker::Internet.email,
+    organization_id: rand(1..20)
     )
 end
 
@@ -100,8 +103,6 @@ Interest.all.each do |interest|
     user.interests << interest
   end
 end
-
-
 
 ##create job/user associations
 Job.all.each do |job|
