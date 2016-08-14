@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :location do
-    name "Tatooine"
+    street "Tatooine"
     city "Tatooine City"
     state "Vermont"
     zipcode 00001

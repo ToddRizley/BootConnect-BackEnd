@@ -34,7 +34,7 @@ end
 #create locations
 20.times do
   FactoryGirl.create(:location,
-    name: Faker::Address.street_address,
+    street: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state,
     zipcode: Faker::Address.zip_code
@@ -45,7 +45,6 @@ end
 20.times do
   FactoryGirl.create(:user,
     name: Faker::StarWars.character,
-    user_name: Faker::Internet.user_name,
     position: Faker::Name.title,
     company: Faker::Company.name,
     bio: Faker::Hipster.paragraph,
@@ -57,7 +56,8 @@ end
 #create admins
 10.times do
   FactoryGirl.create(:admin,
-    name: Faker::Name.name
+    name: Faker::Name.name,
+    emai_address: Faker::Internet.email
     )
 end
 
@@ -94,7 +94,6 @@ Article.all.each do |art|
 end
 
 ##create interest/user associations
-
 Interest.all.each do |interest|
   User.all.each do |user|
     interest.users << user
@@ -119,7 +118,6 @@ Job.all.each do |job|
 end
 
 ##create organization/location associations
-
 Location.all.each do |loc|
   Organization.all.each do |org|
     org.locations << loc
