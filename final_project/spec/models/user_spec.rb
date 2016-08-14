@@ -4,7 +4,6 @@ describe User do
   org =  Organization.create(name: "Katz Emporium of Cool Stuff")
   let!(:user) { User.create(
     :name => "Jeff Katz",
-    :user_name => "katz4prez",
     :position => "Overlord",
     :company => "JKatzSuperPAC",
     :bio => "Coding thangz, breakin hartz.",
@@ -16,11 +15,7 @@ describe User do
   it "it has a name" do
       expect(user.name).to eq("Jeff Katz")
   end
-
-  it "it has an user_name" do
-      expect(user.user_name).to eq("katz4prez")
-  end
-
+  
   it "it has a position" do
       expect(user.position).to eq("Overlord")
   end
