@@ -1,8 +1,19 @@
 require 'rails_helper'
+require 'pry'
 
+User.destroy_all
+Article.destroy_all
+
+User.destroy_all
+Article.destroy_all
+Admin.destroy_all
+Location.destroy_all
+Organization.destroy_all
+Interest.destroy_all
+Job.destroy_all
 
 describe Article do
-  user = User.create(name: "Indiana Jones")
+  user = User.create(name: "Indiana Jones", email_address: "indy@lucasarts.com")
 
   let!(:article) {Article.create(
     :title => "It's A Trap!",

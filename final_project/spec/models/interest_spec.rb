@@ -1,9 +1,16 @@
 require 'rails_helper'
 
+User.destroy_all
+Article.destroy_all
+Admin.destroy_all
+Location.destroy_all
+Organization.destroy_all
+Interest.destroy_all
+Job.destroy_all
 
 describe Interest do
-  user1 = User.create(name: "Indiana Jones")
-  user2 = User.create(name: "Doc Brown")
+  user1 = User.create(name: "Indiana Jones", email_address: "snake@yikes.com")
+  user2 = User.create(name: "Doc Brown", email_address: "bttf@greatscott.com")
 
   let!(:interest) {Interest.create(
     :name => "Hoverboarding",
