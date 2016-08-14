@@ -42,11 +42,4 @@ class User < ApplicationRecord
  	def make_admin
  	end
 
-
-
-
-
-
-
-
 end
