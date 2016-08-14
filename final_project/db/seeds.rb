@@ -48,8 +48,7 @@ end
     position: Faker::Name.title,
     company: Faker::Company.name,
     bio: Faker::Hipster.paragraph,
-    email_address: Faker::Internet.email,
-    organization_id: rand(1..20)
+    email_address: Faker::Internet.email
     )
 end
 
@@ -71,64 +70,55 @@ end
 
 ##create user location associations
 Location.all.each do |loc|
-  User.all.each do |user|
-    loc.users << user
-    user.locations << loc
-  end
+  random_users = User.all.sample(2)
+  loc.users = random_users
+  random_users.each { |user| user.locations << loc }
 end
 
-##create org/admin associations
-Admin.all.each do |admin|
-  Organization.all.each do |org|
-    admin.organization = org
-    org.admins << admin
-  end
+##create admin/org associtation
+Admin.all.each_with_index do |admin, idx|
+  org = Organization.all[idx]
+  admin.organization = org
+  org.admins << admin
 end
 
-##create article/users associations
+##create article/user association
 Article.all.each do |art|
-  User.all.each do |user|
-    user.articles << art
-    art.user = user
-  end
+  user = User.all.sample
+  user.articles << art
+  art.user = user
 end
 
-##create interest/user associations
+##create interest/user association
 Interest.all.each do |interest|
-  User.all.each do |user|
-    interest.users << user
-    user.interests << interest
-  end
+  user = User.all.sample
+  interest.users << user
 end
 
-##create job/user associations
+##create job/user assocation
 Job.all.each do |job|
-  User.all.each do |user|
-    job.user = user
-    user.jobs << job
-  end
+  user = User.all.sample
+  user.jobs << job
+  job.user = user
 end
 
 #create job/location association
 Job.all.each do |job|
-  Location.all.each do |loc|
-    job.location = loc
-    loc.jobs << job
-  end
+  loc = Location.all.sample
+  loc.jobs << job
+  job.location = loc
 end
 
 ##create organization/location associations
 Location.all.each do |loc|
-  Organization.all.each do |org|
-    org.locations << loc
-    loc.organizations << org
-  end
+  org = Organization.all.sample
+  org.locations << loc
+  loc.organizations << org
 end
 
 ##create org/user association
 Organization.all.each do |org|
-  User.all.each do |user|
-    org.users << user
-    user.organization = org
-  end
+  user = User.all.sample
+  org.users << user
+  user.organization = org
 end
