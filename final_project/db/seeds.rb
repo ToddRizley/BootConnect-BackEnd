@@ -14,23 +14,22 @@ Job.destroy_all
   FactoryGirl.create :organization, name: Faker::University.name
 end
 
-##create organization/location associations
-
-Location.all.each do |loc|
-  Organization.all.each do |org|
-    org.locations << loc
-    loc.organizations << org
-  end
+#create interests
+20.times do
+  FactoryGirl.create(:interest,
+    name: Faker::Hipster.word,
+    description: Faker::Hipster.paragraph
+    )
 end
+#create jobs
 
-##create org/user association
-Organization.all.each do |org|
-  User.all.each do |user|
-    org.users << user
-    user.organization = org
-  end
+20.times do
+  FactoryGirl.create(:job,
+    title: Faker::Name.title,
+    description: Faker::Hipster.sentence,
+    url: Faker::Internet.url
+    )
 end
-
 
 #create locations
 20.times do
@@ -40,10 +39,7 @@ end
     state: Faker::Address.state,
     zipcode: Faker::Address.zip_code
     )
-  end
 end
-
-
 
 #create users
 20.times do
@@ -55,7 +51,21 @@ end
     bio: Faker::Hipster.paragraph,
     email_address: Faker::Internet.email
     )
-  end
+end
+
+#create admins
+10.times do
+  FactoryGirl.create(:admin,
+    name: Faker::Name.name
+    )
+end
+
+#create articles
+20.times do
+  FactoryGirl.create(:article,
+    title: Faker::Book.title,
+    url: Faker::Internet.url
+    )
 end
 
 ##create user location associations
@@ -63,16 +73,6 @@ Location.all.each do |loc|
   User.all.each do |user|
     loc.users << user
     user.locations << loc
-  end
-end
-
-
-
-#create admins
-10.times do
-  FactoryGirl.create(:admin,
-    name: Faker::Name.name
-    )
   end
 end
 
@@ -84,31 +84,11 @@ Admin.all.each do |admin|
   end
 end
 
-
-
-#create articles
-20.times do
-  FactoryGirl.create(:article,
-    title: Faker::Book.title,
-    url: Faker::Internet.url
-    )
-  end
-end
-
 ##create article/users associations
 Article.all.each do |art|
   User.all.each do |user|
     user.articles << art
     art.user = user
-  end
-end
-
-#create interests
-20.times do
-  FactoryGirl.create(:interest,
-      name: Faker::Hipster.word,
-      description: Faker::Hipster.paragraph
-      )
   end
 end
 
@@ -121,16 +101,7 @@ Interest.all.each do |interest|
   end
 end
 
-#create jobs
 
-20.times do
-  FactoryGirl.create(:job,
-    title: Faker::Name.title,
-    description: Faker::Hipster.sentence,
-    url: Faker::Internet.url
-    )
-  end
-end
 
 ##create job/user associations
 Job.all.each do |job|
@@ -145,5 +116,22 @@ Job.all.each do |job|
   Location.all.each do |loc|
     job.location = loc
     loc.jobs << job
+  end
+end
+
+##create organization/location associations
+
+Location.all.each do |loc|
+  Organization.all.each do |org|
+    org.locations << loc
+    loc.organizations << org
+  end
+end
+
+##create org/user association
+Organization.all.each do |org|
+  User.all.each do |user|
+    org.users << user
+    user.organization = org
   end
 end
