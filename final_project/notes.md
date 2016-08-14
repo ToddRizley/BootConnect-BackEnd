@@ -3,6 +3,7 @@ does location need a name??
 
 To do Weekend
 
+Association tests not quite working w/ has many through relationships 
 
 
 <!-- 1. make sure models all work --- done -->
