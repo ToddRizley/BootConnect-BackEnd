@@ -11,18 +11,22 @@ module Api
         render json: User.all, includes:['interests', 'locations', 'articles', 'jobs', 'organization']
       end
 
-      def show
 
-        ##perform some action to get email'
-        # somehwere in params is user_email!!
-        @user = someting
-        render json: @user
+      def show
+        clean_email = params["email_address"].sub('&', '.')
+        current_user = User.find_by(email_address: clean_email)
+        ###DONT FORGET TO CHANGE THE &
+        render json: current_user
       end
 
       private
 
       def user_params(params)
         params.require(:user).permit(:name, :email_address, :zipcode, :organization_id)
+      end
+
+      def email_params(params)
+        params.require(:email_address)
       end
     end
   end
