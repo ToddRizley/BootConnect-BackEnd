@@ -11,6 +11,14 @@ module Api
         render json: User.all, includes:['interests', 'locations', 'articles', 'jobs', 'organization']
       end
 
+      def show
+
+        ##perform some action to get email'
+        # somehwere in params is user_email!!
+        @user = someting
+        render json: @user
+      end
+
       private
 
       def user_params(params)
