@@ -1,5 +1,21 @@
-Questions:
-does location need a name??
+Changes to store:
+
+--> add user,admin, org, etc.
+--> delete user admin etc.
+-->edit/update user admin etc.
+--> CURRENT USER --> has attributes
+
+Monday:
+  map out a tree of parts of  app
+  build out our components/ smart and dumb
+  get some functional post requests via axios
+  goal: authentication in React
+  basic basic working prototype
+  --> if time, build out methods and their tests
+    fix current tests
+
+
+
 
 To do Weekend
 
