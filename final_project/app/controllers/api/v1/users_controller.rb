@@ -2,8 +2,10 @@ require 'pry'
 module Api
   module V1
     class UsersController < ApplicationController
+      skip_before_action  :verify_authenticity_token
+
       def create
-        @user = User.create(user_params)
+        @user = User.create({name: params["user"]["fullName"], email_address: params["user"]["email"] })
         render json: @user
       end
 

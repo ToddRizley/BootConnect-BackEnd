@@ -5,6 +5,10 @@ Changes to store:
 -->edit/update user admin etc.
 --> CURRENT USER --> has attributes
 
+Bugs to fix: 
+
+	User receives location twice 
+
 Monday:
   map out a tree of parts of  app
   build out our components/ smart and dumb
