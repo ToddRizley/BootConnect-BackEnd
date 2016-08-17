@@ -26,6 +26,12 @@ def update_name(params)
   end
 end
 
+def update_location(params)
+  if params["location"]
+    self.location = params["location"]
+  end
+end
+
 def update_bio(params)
   if params["bio"]
     self.bio = params["bio"]
@@ -50,12 +56,20 @@ def update_email(params)
   end
 end
 
+def update_experience(params)
+  if params["experience"]
+    self.experience= params["experience"]
+  end
+end
+
 def update_profile(params)
   update_name(params)
   update_bio(params)
   update_position(params)
   update_company(params)
   update_email(params)
+  update_experience(params)
+  update_location(params)
 end
 
 end
