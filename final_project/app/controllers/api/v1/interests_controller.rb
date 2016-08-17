@@ -4,23 +4,24 @@ module Api
 
       def create
         binding.pry
-        if Interest.find_by(name: params["name"])
+        if Interest.find_by(name: params["name"]) == true
           @interest = Interest.find_by(name: params["name"])
+          @interest.users << User.find_by(id: params["user_id"])
+          @interest.save
         else
-          @interest = Interest.create(interest_params)
+          binding.pry
+          @interest = Interest.create(name: params["name"], description: params["description"])
+          @interest.users << User.find_by(id: params["user_id"])
+          @interest.save
         end
+        binding.pry
         render json: @interest
       end
 
       def index
-        render json: Interest.all, includes:['user', 'location']
+        render json: Interest.all, includes:['user']
       end
 
-      # private
-      #
-      # def interest_params
-      #   params.require(:interest).permit(:name, :description, :user_id, :location_id)
-      # end
 
     end
   end
