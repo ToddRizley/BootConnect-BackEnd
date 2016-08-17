@@ -18,4 +18,44 @@ class User < ApplicationRecord
   # validates_format_of :email_address, with: EMAIL_REGEX, :on => :create
   # validates :email_address, uniqueness: true
   # has_secure_password
+
+
+def update_name(params)
+  if params["name"]
+    self.name = params["name"]
+  end
+end
+
+def update_bio(params)
+  if params["bio"]
+    self.bio = params["bio"]
+  end
+end
+
+def update_position(params)
+  if params["position"]
+    self.position = params["position"]
+  end
+end
+
+def update_company(params)
+  if params["company"]
+    self.company = params["company"]
+  end
+end
+
+def update_email(params)
+  if params["email_address"]
+    self.email_address= params["email_address"]
+  end
+end
+
+def update_profile(params)
+  update_name(params)
+  update_bio(params)
+  update_position(params)
+  update_company(params)
+  update_email(params)
+end
+
 end
