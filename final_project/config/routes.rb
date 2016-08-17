@@ -8,9 +8,8 @@ Rails.application.routes.draw do
       resources :locations, except: [:new, :edit]
       resources :organizations, except: [:new, :edit]
       resources :users, except: [:new, :edit, :show]
-
       get '/users/:email_address', to: 'users#show'
-      
+
     end
   end
 end
