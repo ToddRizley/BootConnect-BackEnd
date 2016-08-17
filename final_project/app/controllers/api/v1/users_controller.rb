@@ -21,6 +21,13 @@ module Api
         render json: current_user
       end
 
+      def update
+        user = User.find_by(id: params["id"].to_i)
+        user.update_profile(params)
+        user.save
+        render json: user
+      end
+
       private
 
       def user_params(params)
