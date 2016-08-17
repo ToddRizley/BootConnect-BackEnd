@@ -3,7 +3,12 @@ module Api
     class InterestsController < ApplicationController
 
       def create
-        @interest =  Interest.create(interest_params)
+        binding.pry
+        if Interest.find_by(name: params["name"])
+          @interest = Interest.find_by(name: params["name"])
+        else
+          @interest = Interest.create(interest_params)
+        end
         render json: @interest
       end
 
@@ -11,11 +16,11 @@ module Api
         render json: Interest.all, includes:['user', 'location']
       end
 
-      private
-
-      def interest_params
-        params.require(:interest).permit(:name, :description, :user_id, :location_id)
-      end
+      # private
+      #
+      # def interest_params
+      #   params.require(:interest).permit(:name, :description, :user_id, :location_id)
+      # end
 
     end
   end
