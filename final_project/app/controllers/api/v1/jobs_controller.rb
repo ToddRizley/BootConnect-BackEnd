@@ -3,7 +3,6 @@ module Api
     class JobsController < ApplicationController
 
       def create
-        binding.pry
         if Job.find_by(url: params["job"]["url"]) == true
           job =  Job.find_by(url: params["job"]["url"])
           user = User.find_by(id: params["user_id"])

@@ -12,7 +12,6 @@ module Api
           @interest.users << @user
           @interest.save
         else
-          binding.pry
           @interest = Interest.create(name: params["interest"]["name"])
           @user = User.find_by(id: params["user_id"])
           @interest.users << @user
@@ -23,7 +22,6 @@ module Api
       end
 
       def show
-        binding.pry
         interests = Interest.all.select { |interest|
           interest.users.find_by(id: params["id"])
         }
