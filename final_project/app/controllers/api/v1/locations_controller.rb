@@ -19,7 +19,7 @@ module Api
       end
 
       def index
-        render json: Location.all, includes:['user', 'organization']
+        render json: Location.all, includes:['user', 'organization', 'jobs']
       end
 
       private
