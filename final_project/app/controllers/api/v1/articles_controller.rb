@@ -13,9 +13,7 @@ module Api
           user = User.find_by(id: params["user_id"])
           user.articles << article
           user.save
-
         end
-
         render json: user
       end
 

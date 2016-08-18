@@ -3,8 +3,20 @@ module Api
     class JobsController < ApplicationController
 
       def create
-        @job=  Job.create(job_params)
-        render json: @job
+        if Job.find_by(url: params["job"]["url"]) == true
+          job =  Job.find_by(url: params["job"]["url"])
+          user = User.find_by(id: params["user_id"])
+          user.jobs << job
+          user.save
+        else
+          job = Job.create(title: params["job"]["title"], description: params["job"]["description"],  url: params["job"]["url"])
+          user = User.find_by(id: params["user_id"])
+          user.jobs << article
+          user.location.jobs << job
+          user.save
+        end
+
+        render json: user
       end
 
       def index
