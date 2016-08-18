@@ -34,10 +34,8 @@ end
 #create locations
 20.times do
   FactoryGirl.create(:location,
-    street: Faker::Address.street_address,
     city: Faker::Address.city,
-    state: Faker::Address.state,
-    zipcode: Faker::Address.zip_code
+    state: Faker::Address.state
     )
 end
 
@@ -72,7 +70,6 @@ end
 Location.all.each do |loc|
   random_users = User.all.sample(2)
   loc.users = random_users
-  random_users.each { |user| user.location = loc }
 end
 
 ##create admin/org associtation
