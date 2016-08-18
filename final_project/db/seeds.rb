@@ -72,7 +72,7 @@ end
 Location.all.each do |loc|
   random_users = User.all.sample(2)
   loc.users = random_users
-  random_users.each { |user| user.locations << loc }
+  random_users.each { |user| user.location = loc }
 end
 
 ##create admin/org associtation
