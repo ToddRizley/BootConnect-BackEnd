@@ -12,11 +12,13 @@ module Api
           @interest.users << @user
           @interest.save
         else
+          binding.pry
           @interest = Interest.create(name: params["interest"]["name"])
           @user = User.find_by(id: params["user_id"])
           @interest.users << @user
           @interest.save
         end
+
         render json: @user, include: ['interests', 'jobs', 'articles', 'organization']
       end
 
