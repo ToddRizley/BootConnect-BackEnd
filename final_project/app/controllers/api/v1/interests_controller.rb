@@ -13,18 +13,19 @@ module Api
           @interest.users << User.find_by(id: params["user_id"])
           @interest.save
         end
-        render json: @interest
+        updated_user = @interest.users.last
+        render json: updated_user
       end
 
 
 
-      def show
-
-        interests = Interest.all.select { |interest|
-          interest.users.find_by(id: params["id"])
-        }
-        render json: interests, includes:['user']
-      end
+      # def show
+      #
+      #   interests = Interest.all.select { |interest|
+      #     interest.users.find_by(id: params["id"])
+      #   }
+      #   render json: interests, includes:['user']
+      # end
 
 
     end
