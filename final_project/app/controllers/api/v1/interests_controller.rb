@@ -19,6 +19,7 @@ module Api
 
 
       def show
+
         interests = Interest.all.select { |interest|
           interest.users.find_by(id: params["id"])
         }
