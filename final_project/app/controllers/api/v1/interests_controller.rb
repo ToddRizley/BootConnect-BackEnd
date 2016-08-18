@@ -19,7 +19,7 @@ module Api
           @interest.save
         end
 
-        render json: @user, include: ['interests', 'jobs', 'articles', 'organization']
+        render json: @user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
       def show

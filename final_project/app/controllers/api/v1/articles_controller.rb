@@ -14,7 +14,7 @@ module Api
           user.articles << article
           user.save
         end
-        render json: user
+        render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
       def index
