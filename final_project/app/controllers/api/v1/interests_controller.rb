@@ -25,9 +25,9 @@ module Api
         interests = Interest.all.select { |interest|
           interest.users.find_by(id: params["id"])
         }
-        render json: interests, includes:['user']
+        updated_user = @interest.users.last
+        render json: updated_user
       end
-
     end
   end
 end
