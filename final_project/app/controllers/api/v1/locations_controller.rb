@@ -3,7 +3,6 @@ module Api
     class LocationsController < ApplicationController
 
       def create
-        binding.pry
         if Location.find_by(city: params["location"]["city"]) == true
           @location =  Location.find_by(city: params["location"]["city"])
           @location.users << User.find_by(id: params["user_id"])
