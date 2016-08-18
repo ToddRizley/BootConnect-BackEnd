@@ -7,7 +7,8 @@ module Api
       def create
         binding.pry
         @user = User.create({name: params["user"]["fullName"], email_address: params["user"]["email"] })
-        render json: @user
+        @user.location = Location.where(:city => params["user"]["city"], :state => params["user"]["state"]).first_or_create
+        render json: @user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
       def index
