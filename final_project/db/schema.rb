@@ -65,6 +65,11 @@ ActiveRecord::Schema.define(version: 20160818184552) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "user_locations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "location_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "position"

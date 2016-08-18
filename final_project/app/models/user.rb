@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :user_interests
   has_many :interests, through: :user_interests
-  belongs_to :location
+  belongs_to :location, optional: true
 
   has_many :jobs
   has_many :articles
