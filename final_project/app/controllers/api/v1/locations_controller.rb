@@ -3,19 +3,19 @@ module Api
     class LocationsController < ApplicationController
 
       def create
-
-        if Location.find_by(city: params["city"]) == true
-          @location =  Location.find_by(city: params["city"])
+        binding.pry
+        if Location.find_by(city: params["location"]["city"]) == true
+          @location =  Location.find_by(city: params["location"]["city"])
           @location.users << User.find_by(id: params["user_id"])
           @location.save
         else
-          @location = Location.create(city: params["city"], state: params["state"])
+          @location = Location.create(city: params["location"]["city"], state: params["location"]["state"])
           @location.users << User.find_by(id: params["user_id"])
           @location.save
         end
-        binding.pry
-        updated_user = @location.users.last
-        render json:updated_user
+
+        updated_user = @location.user.last
+        render json: updated_user
       end
 
       def index
