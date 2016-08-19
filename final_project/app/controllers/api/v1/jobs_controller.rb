@@ -3,18 +3,17 @@ module Api
     class JobsController < ApplicationController
 
       def create
-        if Job.find_by(url: params["job"]["url"]) == true
-          job =  Job.find_by(url: params["job"]["url"])
-          user = User.find_by(id: params["user_id"])
-          user.jobs << job
-          user.save
-        else
-          job = Job.create(title: params["job"]["title"], description: params["job"]["description"],  url: params["job"]["url"])
-          user = User.find_by(id: params["user_id"])
-          user.jobs << article
-          user.location.jobs << job
-          user.save
-        end
+        binding.pry
+        job = Job.create({title: params["job"]["title"], description: params["job"]["description"], url: params["job"]["url"]})
+
+        parsed_city = params["job"]["location"].split(',')[0]
+        parsed_state = params["job"]["location"].split(',')[1]
+        location = Location.where(:city => parsed_city, :state => parsed_state).first_or_create
+        location.jobs << job
+
+        user = User.find_by(id: params["user_id"].to_i)
+        user.jobs << job
+        user.save
 
         render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
