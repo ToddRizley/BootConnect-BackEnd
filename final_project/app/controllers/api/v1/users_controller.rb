@@ -11,7 +11,7 @@ module Api
       end
 
       def index
-        render json: User.all, includes:['interests', 'locations', 'articles', 'jobs', 'organization']
+        render json: User.all, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
 
@@ -19,14 +19,14 @@ module Api
         clean_email = params["email_address"].sub('&', '.')
         current_user = User.find_by(email_address: clean_email)
         ###DONT FORGET TO CHANGE THE &
-        render json: current_user
+        render json: current_user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
       def update
         user = User.find_by(id: params["id"].to_i)
         user.update_profile(params)
         user.save
-        render json: user
+        render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
       private
