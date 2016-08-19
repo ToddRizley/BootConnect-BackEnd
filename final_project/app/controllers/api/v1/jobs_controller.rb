@@ -3,7 +3,6 @@ module Api
     class JobsController < ApplicationController
 
       def create
-        binding.pry
         job = Job.create({title: params["job"]["title"], description: params["job"]["description"], url: params["job"]["url"]})
 
         parsed_city = params["job"]["location"].split(',')[0]

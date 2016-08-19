@@ -3,17 +3,10 @@ module Api
     class ArticlesController < ApplicationController
 
       def create
-        if Article.find_by(url: params["article"]["url"]) == true
-          article =  Article.find_by(url: params["article"]["url"])
-          user = User.find_by(id: params["user_id"])
-          user.articles << article
-          user.save
-        else
-          article = Article.create(title: params["article"]["title"], url: params["article"]["url"], user_id: params["user_id"])
-          user = User.find_by(id: params["user_id"])
-          user.articles << article
-          user.save
-        end
+        article = Article.create(title: params["article"]["title"], url: params["article"]["url"])
+        user = User.find_by(id: params["user_id"])
+        user.articles << article
+        user.save
         render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
