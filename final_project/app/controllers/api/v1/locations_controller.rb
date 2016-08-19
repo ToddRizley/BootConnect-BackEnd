@@ -8,7 +8,7 @@ module Api
           @location.users << User.find_by(id: params["user_id"])
           @location.save
         else
-          @location = Location.create(city: params["location"]["city"], state: params["location"]["state"])
+          @location = Location.create(city: params["location"]["city"], state: params["location"]["state"], longitude: params["location"]["longitude"], latitude: params["location"]["latitude"])
           @location.users << User.find_by(id: params["user_id"])
           @location.save
         end
