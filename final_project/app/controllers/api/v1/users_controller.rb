@@ -10,12 +10,11 @@ module Api
         @user.location = Location.where(:city => params["user"]["city"], :state => params["user"]["state"]).first_or_create
         @user.location.latitude = params["location_data"]["lat"].round(10)
         @user.location.longitude= params["location_data"]["lng"].round(10)
-        binding.pry
         render json: @user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
       def index
-        render json: User.all, include: ['interests', 'jobs', 'articles', 'organization', 'location']
+        render json: User.all, include: ['location']
       end
 
 
