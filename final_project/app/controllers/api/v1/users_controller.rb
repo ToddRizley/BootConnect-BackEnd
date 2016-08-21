@@ -7,6 +7,8 @@ module Api
       def create
         @user = User.create({name: params["user"]["fullName"], email_address: params["user"]["email"] })
         @user.location = Location.where(:city => params["user"]["city"], :state => params["user"]["state"], :latitude => params["location_data"]["lat"], :longitude => params["location_data"]["lng"]).first_or_create
+        @user.save
+        binding.pry
         render json: @user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
