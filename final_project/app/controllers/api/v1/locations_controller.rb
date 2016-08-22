@@ -17,8 +17,15 @@ module Api
         render json: updated_user
       end
 
+      def show
+        location = Location.find_by(city: params["id"])
+        filtered = location.users
+
+        render json: filtered, includes:['user', 'organization', 'jobs']
+      end
+
       def index
-        render json: Location.all, includes:['user', 'organization', 'jobs']
+        render json: Location.all, includes:['user']
       end
 
 

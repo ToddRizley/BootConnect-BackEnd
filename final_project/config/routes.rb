@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :users, except: [:new, :edit, :show]
       get '/users/:email_address', to: 'users#show'
       get '/interests/:user_id', to: 'interests#show'
+      get '/locations/:city', to: 'locations#show'
     end
   end
 end
