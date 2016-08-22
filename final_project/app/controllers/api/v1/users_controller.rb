@@ -20,12 +20,29 @@ module Api
         clean_email = params["email_address"].sub('&', '.')
         current_user = User.find_by(email_address: clean_email)
         ###DONT FORGET TO CHANGE THE &
+
         render json: current_user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
       def update
-        user = User.find_by(id: params["id"].to_i)
-        user.update_profile(params)
+        binding.pry
+        @user = User.find_by(id: params["id"].to_i)
+
+        #take in "city, state" string on Header Form
+        #parse and create/find new location and associate the user
+
+        #params = name, location, company, position
+        @user.name = params["user"]["name"]
+        @user.company = params["user"]["company"]
+        @user.position = params["user"]["position"]
+
+        parsed_city = params["user"]["location"].split(',')[0]
+        parsed_state = params["user"]["location"].split(',')[1]
+
+        @location = Location.find_or_create_by(city: parsed_city)
+        @location.users << @user
+
+        #user.update_profile(params)
         user.save
         render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
