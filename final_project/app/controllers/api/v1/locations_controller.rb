@@ -21,6 +21,8 @@ module Api
         render json: Location.all, includes:['user', 'organization', 'jobs']
       end
 
+
+
       private
 
       def location_params
