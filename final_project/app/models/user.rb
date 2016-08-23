@@ -26,7 +26,11 @@ end
 
 def update_location(params)
   if params["location"]
-    self.location = params["location"]
+    parsed_city = params["location"].split(',')[0]
+    parsed_state = params["location"].split(',')[1]
+    location = Location.find_or_create_by(city: parsed_city)
+    location.users << self
+    location.save
   end
 end
 
