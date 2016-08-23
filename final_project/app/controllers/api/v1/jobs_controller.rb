@@ -17,6 +17,12 @@ module Api
         render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
+      def show
+        location = Location.find_by(city: params["id"])
+        filtered = location.jobs
+        render json: filtered, includes:['user', 'location']
+      end
+
       def index
         render json: Job.all, includes:['user', 'location']
       end
