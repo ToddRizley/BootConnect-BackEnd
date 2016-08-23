@@ -1,14 +1,18 @@
 require 'pry'
+require 'bcrypt'
 module Api
   module V1
     class UsersController < ApplicationController
       skip_before_action  :verify_authenticity_token
 
       def create
-        @user = User.create({name: params["user"]["fullName"], email_address: params["user"]["email"] })
+        binding.pry
+        @user = User.create({name: params["user"]["fullName"], email_address: params["user"]["email"]})
+        @user.password = params["user"]["password"]
         @user.location = Location.where(:city => params["user"]["city"], :state => params["user"]["state"]).first_or_create
         @user.location.latitude = params["location_data"]["lat"].round(10)
         @user.location.longitude= params["location_data"]["lng"].round(10)
+        binding.pry
         render json: @user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
