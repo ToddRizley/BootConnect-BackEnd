@@ -6,13 +6,14 @@ module Api
 
       def create
         @user = User.create({name: params["user"]["fullName"], email_address: params["user"]["email"] })
-        @user.location = Location.where(:city => params["user"]["city"], :state => params["user"]["state"], :latitude => params["location_data"]["lat"], :longitude => params["location_data"]["lng"]).first_or_create
-        @user.save
+        @user.location = Location.where(:city => params["user"]["city"], :state => params["user"]["state"]).first_or_create
+        @user.location.latitude = params["location_data"]["lat"].round(10)
+        @user.location.longitude= params["location_data"]["lng"].round(10)
         render json: @user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
       def index
-        render json: User.all, include: ['location']
+        render json: User.all, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
 
@@ -25,24 +26,8 @@ module Api
       end
 
       def update
-        binding.pry
-        @user = User.find_by(id: params["id"].to_i)
-
-        #take in "city, state" string on Header Form
-        #parse and create/find new location and associate the user
-
-        #params = name, location, company, position
-        @user.name = params["user"]["name"]
-        @user.company = params["user"]["company"]
-        @user.position = params["user"]["position"]
-
-        parsed_city = params["user"]["location"].split(',')[0]
-        parsed_state = params["user"]["location"].split(',')[1]
-
-        @location = Location.find_or_create_by(city: parsed_city)
-        @location.users << @user
-
-        #user.update_profile(params)
+        user = User.find_by(id: params["id"].to_i)
+        user.update_profile(params)
         user.save
         render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
