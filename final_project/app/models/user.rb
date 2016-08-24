@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  require 'bcrypt'
+  has_secure_password
   has_many :user_interests
   has_many :interests, through: :user_interests
   belongs_to :location, optional: true
