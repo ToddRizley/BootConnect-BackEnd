@@ -27,6 +27,13 @@ module Api
         render json: Job.all, includes:['user', 'location']
       end
 
+      def destroy
+        id = params["id"]
+        job = Job.find_by(id: id)
+        job.destroy
+        render json: Job.all, includes:['user', 'location']
+      end
+
       private
 
       def job_params
