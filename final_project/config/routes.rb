@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get '/users/:email_address', to: 'users#show'
       get '/interests/:user_id', to: 'interests#show'
       get '/locations/:city', to: 'locations#show'
+      get 'users/distance/:home_city/:distance', to: 'users#filter_distance'
     end
   end
 end
