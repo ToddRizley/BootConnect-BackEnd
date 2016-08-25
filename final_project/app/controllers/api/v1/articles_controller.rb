@@ -14,6 +14,13 @@ module Api
         render json: Article.all, includes:['user']
       end
 
+      def destroy
+        id = params["id"]
+        article = Article.find_by(id: id)
+        article.destroy
+        render json: Article.all, includes:['user']
+      end
+
       private
 
       def article_params
