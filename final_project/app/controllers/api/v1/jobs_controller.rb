@@ -4,17 +4,22 @@ module Api
 
       def create
         job = Job.create({title: params["job"]["title"], description: params["job"]["description"], url: params["job"]["url"]})
-
         parsed_city = params["job"]["location"].split(',')[0]
         parsed_state = params["job"]["location"].split(',')[1]
-        location = Location.where(:city => parsed_city, :state => parsed_state).first_or_create
+
+        if Location.find_by(city: parsed_city)
+          location= Location.find_by(city: parsed_city)
+        else
+          location = Location.create(city: parsed_city, state: parsed_state)
+        end
+
         location.jobs << job
+        location.save
 
         user = User.find_by(id: params["user_id"].to_i)
         user.jobs << job
         user.save
-
-        render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
+        render json: job, include: ['user', 'location']
       end
 
       def show
