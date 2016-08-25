@@ -33,10 +33,11 @@ module Api
       end
 
       def destroy
+        binding.pry
         id = params["id"]
         job = Job.find_by(id: id)
         job.destroy
-        render json: Job.all, includes:['user', 'location']
+        render json: user, includes:['user', 'location']
       end
 
       private

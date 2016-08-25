@@ -15,6 +15,7 @@ module Api
       end
 
       def destroy
+        binding.pry
         id = params["id"]
         article = Article.find_by(id: id)
         article.destroy
