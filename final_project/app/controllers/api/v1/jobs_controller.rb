@@ -32,6 +32,38 @@ module Api
         render json: Job.all, includes:['user', 'location']
       end
 
+      def filter_distance
+        binding.pry
+        def distance(lat1, lon1, lat2, lon2)
+           p = Math::PI/180
+           a = 0.5 - Math.cos((lat2 - lat1) * p)/2 +
+               Math.cos(lat1 * p) * Math.cos(lat2 * p) *
+                   (1 - Math.cos((lon2 - lon1) * p))/2
+           return 7917.5117 * Math.asin(Math.sqrt(a))
+        end
+
+        dist = params["distance"].to_i
+        home = Location.find_by(city: params["home_city"])
+        binding.pry
+        locs = Location.all.map do |loc|
+          if (distance(home.latitude, home.longitude, loc.latitude, loc.longitude) <= dist)
+            loc
+          end
+        end.compact
+          binding.pry
+
+        jobs = locs.map do |l|
+          if l.jobs
+            l.jobs
+          end
+        end.flatten
+          binding.pry
+
+        jobs.compact
+
+        render json: jobs, include: ['user', 'location']
+      end
+
       def destroy
         binding.pry
         id = params["id"]
