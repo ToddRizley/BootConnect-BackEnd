@@ -4,27 +4,23 @@ module Api
 
       def create
         article = Article.create(title: params["article"]["title"], url: params["article"]["url"])
-        user = User.find_by(id: params["user_id"])
-        user.articles << article
-        user.save
-        render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
+        render json: article
       end
 
       def index
-        render json: Article.all, includes:['user']
+        render json: Article.all
       end
 
       def destroy
         id = params["id"]
         article = Article.find_by(id: id)
         article.destroy
-        render json: Article.all, includes:['user']
       end
 
       private
 
       def article_params
-        params.require(:article).permit(:title, :url, :user_id)
+        params.require(:article).permit(:title, :url)
       end
     end
   end
