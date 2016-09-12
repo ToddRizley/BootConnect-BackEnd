@@ -3,7 +3,7 @@ module Api
     class OrganizationsController < ApplicationController
 
       def create
-        @organization=  Organization.create(organization_params)
+        @organization =  Organization.create(organization_params)
         render json: @organization
       end
 

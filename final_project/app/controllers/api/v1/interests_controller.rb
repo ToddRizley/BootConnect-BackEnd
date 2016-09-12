@@ -1,22 +1,11 @@
-require 'pry'
-
 module Api
   module V1
     class InterestsController < ApplicationController
 
       def create
-        ##replace with find_or_create_by
-        if Interest.find_by(name: params["interest"]["name"]) == true
-          @interest = Interest.find_by(name: params["interest"]["name"])
-          @user = User.find_by(id: params["user_id"])
-          @interest.users << @user
-          @interest.save
-        else
-          @interest = Interest.create(name: params["interest"]["name"])
-          @user = User.find_by(id: params["user_id"])
-          @interest.users << @user
-          @interest.save
-        end
+        @interest = Interest.find_or_create_by(name: params["interest"]["name"])
+        @user = User.find_by(id: params["user_id"])
+        @interest.users << @user
 
         render json: @user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end

@@ -3,6 +3,7 @@ module Api
     class JobsController < ApplicationController
 
       def create
+        ##need service objects
         job = Job.create({title: params["job"]["title"], description: params["job"]["description"], url: params["job"]["url"]})
         parsed_city = params["job"]["location"].split(',')[0]
         parsed_state = params["job"]["location"].split(',')[1]
@@ -31,9 +32,8 @@ module Api
       def index
         render json: Job.all, includes:['user', 'location']
       end
-
+      ##move to service object
       def filter_distance
-        binding.pry
         def distance(lat1, lon1, lat2, lon2)
            p = Math::PI/180
            a = 0.5 - Math.cos((lat2 - lat1) * p)/2 +
@@ -44,20 +44,17 @@ module Api
 
         dist = params["distance"].to_i
         home = Location.find_by(city: params["home_city"])
-        binding.pry
         locs = Location.all.map do |loc|
           if (distance(home.latitude, home.longitude, loc.latitude, loc.longitude) <= dist)
             loc
           end
         end.compact
-          binding.pry
 
         jobs = locs.map do |l|
           if l.jobs
             l.jobs
           end
         end.flatten
-          binding.pry
 
         jobs.compact
 
@@ -65,7 +62,6 @@ module Api
       end
 
       def destroy
-        binding.pry
         id = params["id"]
         job = Job.find_by(id: id)
         job.destroy

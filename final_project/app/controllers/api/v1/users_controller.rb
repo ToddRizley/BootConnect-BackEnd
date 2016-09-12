@@ -6,6 +6,7 @@ module Api
       skip_before_action  :verify_authenticity_token
 
       def create
+        ##break out into model methods
         @user = User.create({name: params["user"]["fullName"], email_address: params["user"]["email"]})
         @user.password = params["user"]["password"]
         @user.location = Location.where(:city => params["user"]["city"], :state => params["user"]["state"]).first_or_create
@@ -24,12 +25,11 @@ module Api
       def show
         clean_email = params["email_address"].sub('&', '.')
         current_user = User.find_by(email_address: clean_email)
-        ###DONT FORGET TO CHANGE THE &
 
         render json: current_user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
-
+      ##move to service objects
       def filter_distance
 
         def distance(lat1, lon1, lat2, lon2)
