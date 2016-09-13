@@ -6,7 +6,6 @@ module Api
       skip_before_action  :verify_authenticity_token
 
       def create
-        ##break out into model methods
         @user = User.create({name: params["user"]["fullName"], email_address: params["user"]["email"]})
         @user.password = params["user"]["password"]
         @user.location = Location.where(:city => params["user"]["city"], :state => params["user"]["state"]).first_or_create
@@ -29,33 +28,13 @@ module Api
         render json: current_user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
-      ##move to service objects
-      def filter_distance
 
-        def distance(lat1, lon1, lat2, lon2)
-           p = Math::PI/180
-           a = 0.5 - Math.cos((lat2 - lat1) * p)/2 +
-               Math.cos(lat1 * p) * Math.cos(lat2 * p) *
-                   (1 - Math.cos((lon2 - lon1) * p))/2
-           return 7917.5117 * Math.asin(Math.sqrt(a))
-        end
+      def filter_distance
 
         dist = params["distance"].to_i
         home = Location.find_by(city: params["home_city"])
-        locs = Location.all.map do |loc|
-
-          if (distance(home.latitude, home.longitude, loc.latitude, loc.longitude) <= dist)
-            loc
-          end
-        end.compact
-
-        users = locs.map do |l|
-          if l.users
-            l.users
-          end
-        end.flatten
-
-
+        locs = Services::DistanceCalculator.new.find_locations_in_radius(home, dist)
+        users = Services::DistanceCalculator.new.find_closest_users(locs)
         users.compact
 
         render json: users, include: ['interests', 'jobs', 'articles', 'organization', 'location']

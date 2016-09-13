@@ -34,28 +34,11 @@ module Api
       end
       ##move to service object
       def filter_distance
-        def distance(lat1, lon1, lat2, lon2)
-           p = Math::PI/180
-           a = 0.5 - Math.cos((lat2 - lat1) * p)/2 +
-               Math.cos(lat1 * p) * Math.cos(lat2 * p) *
-                   (1 - Math.cos((lon2 - lon1) * p))/2
-           return 7917.5117 * Math.asin(Math.sqrt(a))
-        end
-
         dist = params["distance"].to_i
         home = Location.find_by(city: params["home_city"])
-        locs = Location.all.map do |loc|
-          if (distance(home.latitude, home.longitude, loc.latitude, loc.longitude) <= dist)
-            loc
-          end
-        end.compact
-
-        jobs = locs.map do |l|
-          if l.jobs
-            l.jobs
-          end
-        end.flatten
-
+        binding.pry
+        locs = Services::DistanceCalculator.new.find_locations_in_radius(home, dist)
+        jobs = Services::DistanceCalculator.new.find_closest_jobs(locs)
         jobs.compact
 
         render json: jobs, include: ['user', 'location']
