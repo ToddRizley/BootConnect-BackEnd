@@ -3,8 +3,7 @@ module Api
     class LocationsController < ApplicationController
 
       def create
-
-
+        
         @location = Location.find_or_create_by(city: params["location"]["city"].capitalize!)
         @user = User.find_by(id: params["user_id"])
         @location.users << @user

@@ -23,8 +23,8 @@ module Api
         user_interest = UserInterest.find_by(user_id: user.id, interest_id: params["id"].to_i)
         user_interest.destroy
         render json: user
-
       end
+      
     end
   end
 end
