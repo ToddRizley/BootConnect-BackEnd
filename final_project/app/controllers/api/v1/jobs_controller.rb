@@ -36,7 +36,6 @@ module Api
       def filter_distance
         dist = params["distance"].to_i
         home = Location.find_by(city: params["home_city"])
-        binding.pry
         locs = Services::DistanceCalculator.new.find_locations_in_radius(home, dist)
         jobs = Services::DistanceCalculator.new.find_closest_jobs(locs)
         jobs.compact
