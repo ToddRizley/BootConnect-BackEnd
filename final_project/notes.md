@@ -5,9 +5,9 @@ Changes to store:
 -->edit/update user admin etc.
 --> CURRENT USER --> has attributes
 
-Bugs to fix: 
+Bugs to fix:
 
-	User receives location twice 
+	User receives location twice
 
 Monday:
   map out a tree of parts of  app
@@ -43,3 +43,9 @@ rails API
     --->views
 
 components
+
+
+
+JWTS
+
+Distance Algorithm as a service object DaaaSo??

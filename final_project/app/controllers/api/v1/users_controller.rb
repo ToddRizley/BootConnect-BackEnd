@@ -1,5 +1,6 @@
 require 'pry'
 require 'bcrypt'
+require 'jwt'
 module Api
   module V1
     class UsersController < ApplicationController
@@ -7,14 +8,20 @@ module Api
 
       def create
         ##break out into model methods
-        @user = User.create({name: params["user"]["fullName"], email_address: params["user"]["email"]})
+        hmac_secret = "test_secret"
+        payload = {name: params["user"]["fullName"], email_address: params["user"]["email"]}
+        @user = User.create({
+          name: params["user"]["fullName"],
+          email_address: params["user"]["email"],
+          token: JWT.encode(payload, hmac_secret, 'HS256')
+          })
         @user.password = params["user"]["password"]
         @user.location = Location.where(:city => params["user"]["city"], :state => params["user"]["state"]).first_or_create
         @user.location.latitude = params["location_data"]["lat"].round(10)
         @user.location.longitude= params["location_data"]["lng"].round(10)
         @user.location.save
         @user.save
-        render json: @user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
+        render json: @user, include: ['token', 'interests', 'jobs', 'articles', 'organization', 'location']
       end
 
       def index
@@ -68,6 +75,7 @@ module Api
         user = User.find_by(id: params["id"].to_i)
         user.update_profile(params)
         user.save
+        binding.pry
         render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 

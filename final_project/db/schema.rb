@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823003358) do
+ActiveRecord::Schema.define(version: 20160914233056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(version: 20160823003358) do
     t.string  "title"
     t.text    "description"
     t.string  "url"
-    t.integer "user_id"
     t.integer "location_id"
     t.string  "company"
+    t.integer "user_id"
   end
 
   create_table "location_organizations", force: :cascade do |t|
@@ -74,12 +74,19 @@ ActiveRecord::Schema.define(version: 20160823003358) do
     t.string   "company"
     t.string   "bio"
     t.string   "email_address"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "organization_id"
     t.string   "password_digest"
     t.text     "experience"
     t.integer  "location_id"
+    t.text     "token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",       default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
   end
 
 end

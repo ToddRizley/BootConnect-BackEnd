@@ -4,7 +4,8 @@ module Api
 
       def create
         article = Article.create(title: params["article"]["title"], url: params["article"]["url"])
-        user = User.find_by(id: params["user_id"])
+        binding.pry
+        user = User.last
         user.articles << article
         user.save
         render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
