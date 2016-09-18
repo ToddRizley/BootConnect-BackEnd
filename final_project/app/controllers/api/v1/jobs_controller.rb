@@ -4,9 +4,10 @@ module Api
 
       def create
         ##need service objects
-        job = Job.create({title: params["job"]["title"], company: params["job"]["company"], url: params["job"]["url"]})
-        parsed_city = params["job"]["location"].split(',')[0]
-        parsed_state = params["job"]["location"].split(',')[1]
+        binding.pry
+        job = Job.create({title: params["job"]["values"]["title"], company: params["job"]["values"]["company"], url: params["job"]["values"]["url"]})
+        parsed_city = params["job"]["values"]["location"].split(',')[0]
+        parsed_state = params["job"]["values"]["location"].split(',')[1]
 
         if Location.find_by(city: parsed_city)
           location= Location.find_by(city: parsed_city)
