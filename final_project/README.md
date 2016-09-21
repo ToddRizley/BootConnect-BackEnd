@@ -1,24 +1,19 @@
-# README
+#README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Contributors:
 
-Things you may want to cover:
+Dan Gorman - https://github.com/eaharonoff
 
-* Ruby version
+Todd Rizley - https://github.com/ToddRizley
 
-* System dependencies
+John Alexander - https://github.com/chaplonglau
 
-* Configuration
+Purpose: Find and connect with alumni from your bootcamp. Network, find and post jobs, share articles, and find out who lives in your area that you could grab coffee with! Final project for the Flatiron School built in August 2016.
 
-* Database creation
+Technologies used: Ruby, Ruby on Rails, Bootstrap, React.js, Redux, Javascript, Google Maps API
 
-* Database initialization
+Frontend repo link: https://github.com/ToddRizley/BootConnect-FrontEnd/tree/master/frontend_react
 
-* How to run the test suite
+Note: Project is still undergoing changes. Stay tuned for updates!
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Thanks for using our app!
