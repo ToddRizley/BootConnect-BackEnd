@@ -22,6 +22,7 @@ module Api
 
 
       def show
+        binding.pry
         clean_email = params["email_address"].sub('&', '.')
         current_user = User.find_by(email_address: clean_email)
 
@@ -40,11 +41,9 @@ module Api
         render json: users, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
 
-
-
-
       def update
-        user = User.find_by(id: params["id"].to_i)
+        user = User.includes(:location, :interests).find_by(id: params["id"].to_i)
+        binding.pry
         user.update_profile(params)
         user.save
         render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
