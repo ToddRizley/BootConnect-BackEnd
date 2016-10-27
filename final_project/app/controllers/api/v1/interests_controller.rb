@@ -5,9 +5,7 @@ module Api
       def create
         @interest = Interest.find_or_create_by(name: params["interest"])
         @user = User.includes(:interests).find_by(id: params["user_id"])
-        @interest.users << @user
         @user.interests << @interest
-
 
         render json: @user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
