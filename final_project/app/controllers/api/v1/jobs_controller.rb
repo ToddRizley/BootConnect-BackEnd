@@ -4,7 +4,7 @@ module Api
 
       def create
         ##need service objects
-        
+
         job = Job.create({title: params["job"]["values"]["title"], company: params["job"]["values"]["company"], url: params["job"]["values"]["url"]})
         parsed_city = params["job"]["values"]["location"].split(',')[0]
         parsed_state = params["job"]["values"]["location"].split(',')[1]
@@ -40,7 +40,7 @@ module Api
         jobs = Services::DistanceCalculator.new.find_closest_jobs(locs)
         jobs.compact
 
-        render json: jobs, include: ['user', 'location']
+        render json: jobs, include: ['location']
       end
 
       def destroy
