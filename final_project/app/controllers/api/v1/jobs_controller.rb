@@ -4,18 +4,18 @@ module Api
 
       def create
         ##need service objects
+        
         job = Job.create({title: params["job"]["values"]["title"], company: params["job"]["values"]["company"], url: params["job"]["values"]["url"]})
         parsed_city = params["job"]["values"]["location"].split(',')[0]
         parsed_state = params["job"]["values"]["location"].split(',')[1]
-        binding.pry
         loc = Location.find_by(city: parsed_city)
 
         if loc
           location= loc
         else
-          location = Location.create(city: parsed_city, state: parsed_state)
+          location = Location.create(city: parsed_city, state: parsed_state, latitude: params["coords"]["lat"], longitude: params["coords"]["lng"] )
         end
-        binding.pry
+
         location.jobs << job
         location.save
         jobs = Job.all.includes(:location, :user)
@@ -30,7 +30,6 @@ module Api
 
       def index
         jobs = Job.all.includes(:location, :user)
-        binding.pry
         render json: jobs, includes:['user', 'location']
       end
       ##move to service object

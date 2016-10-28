@@ -13,7 +13,7 @@ module Api
       end
 
       def show
-        binding.pry
+
         location = Location.includes(:users).find_by(city: params["id"])
         filtered = location.users
 

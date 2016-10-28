@@ -22,7 +22,6 @@ module Api
 
 
       def show
-        binding.pry
         clean_email = params["email_address"].sub('&', '.')
         current_user = User.find_by(email_address: clean_email)
 
