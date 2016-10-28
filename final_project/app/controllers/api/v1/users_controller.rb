@@ -17,7 +17,7 @@ module Api
       end
 
       def index
-        render json: User.all, include: ['interests', 'jobs', 'articles', 'organization', 'location']
+        render json: User.all.includes(:location)
       end
 
 
@@ -30,21 +30,17 @@ module Api
 
 
       def filter_distance
-
         dist = params["distance"].to_i
         home = Location.find_by(city: params["home_city"])
         locs = Services::DistanceCalculator.new.find_locations_in_radius(home, dist)
         users = Services::DistanceCalculator.new.find_closest_users(locs)
         users.compact
 
-        render json: users, include: ['interests', 'jobs', 'articles', 'organization', 'location']
+        render json: users, include: ['location']
       end
 
-
-
-
       def update
-        user = User.find_by(id: params["id"].to_i)
+        user = User.includes(:location, :interests).find_by(id: params["id"].to_i)
         user.update_profile(params)
         user.save
         render json: user, include: ['interests', 'jobs', 'articles', 'organization', 'location']

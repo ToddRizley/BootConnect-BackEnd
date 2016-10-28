@@ -4,22 +4,21 @@ module Api
 
       def create
         ##need service objects
-        job = Job.create({title: params["job"]["title"], company: params["job"]["company"], url: params["job"]["url"]})
-        parsed_city = params["job"]["location"].split(',')[0]
-        parsed_state = params["job"]["location"].split(',')[1]
+        
+        job = Job.create({title: params["job"]["values"]["title"], company: params["job"]["values"]["company"], url: params["job"]["values"]["url"]})
+        parsed_city = params["job"]["values"]["location"].split(',')[0]
+        parsed_state = params["job"]["values"]["location"].split(',')[1]
+        loc = Location.find_by(city: parsed_city)
 
-        if Location.find_by(city: parsed_city)
-          location= Location.find_by(city: parsed_city)
+        if loc
+          location= loc
         else
-          location = Location.create(city: parsed_city, state: parsed_state)
+          location = Location.create(city: parsed_city, state: parsed_state, latitude: params["coords"]["lat"], longitude: params["coords"]["lng"] )
         end
 
         location.jobs << job
         location.save
-        # user = User.find_by(id: params["user_id"].to_i)
-        # user.jobs << job
-        # user.save
-        jobs = Job.all
+        jobs = Job.all.includes(:location, :user)
         render json: jobs, include: ['user', 'location']
       end
 
@@ -30,7 +29,8 @@ module Api
       end
 
       def index
-        render json: Job.all, includes:['user', 'location']
+        jobs = Job.all.includes(:location, :user)
+        render json: jobs, includes:['user', 'location']
       end
       ##move to service object
       def filter_distance

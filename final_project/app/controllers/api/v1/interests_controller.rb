@@ -3,9 +3,9 @@ module Api
     class InterestsController < ApplicationController
 
       def create
-        @interest = Interest.find_or_create_by(name: params["interest"]["name"])
-        @user = User.find_by(id: params["user_id"])
-        @interest.users << @user
+        @interest = Interest.find_or_create_by(name: params["interest"])
+        @user = User.includes(:interests).find_by(id: params["user_id"])
+        @user.interests << @interest
 
         render json: @user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
       end
@@ -24,7 +24,7 @@ module Api
         user_interest.destroy
         render json: user
       end
-      
+
     end
   end
 end

@@ -3,7 +3,7 @@ module Api
     class LocationsController < ApplicationController
 
       def create
-        
+
         @location = Location.find_or_create_by(city: params["location"]["city"].capitalize!)
         @user = User.find_by(id: params["user_id"])
         @location.users << @user
@@ -13,10 +13,11 @@ module Api
       end
 
       def show
-        location = Location.find_by(city: params["id"])
+
+        location = Location.includes(:users).find_by(city: params["id"])
         filtered = location.users
 
-        render json: filtered, includes:['user', 'organization', 'jobs']
+        render json: filtered
       end
 
       def index

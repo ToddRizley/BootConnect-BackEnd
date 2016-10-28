@@ -1,7 +1,7 @@
 module Api
   module V1
     class AdminsController < ApplicationController
-      
+
         def create
           @admin =  Admin.create(admin_params)
           render json: @admin
