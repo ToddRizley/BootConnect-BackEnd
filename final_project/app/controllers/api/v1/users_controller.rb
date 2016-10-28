@@ -25,7 +25,12 @@ module Api
         clean_email = params["email_address"].sub('&', '.')
         current_user = User.find_by(email_address: clean_email)
 
-        render json: current_user, include: ['interests', 'jobs', 'articles', 'organization', 'location']
+         if current_user.authenticate(params["userPassword"])
+            render json: current_user, include: ['interests', 'location']
+        else
+          render json: "false"
+        end
+        
       end
 
 
