@@ -1,6 +1,10 @@
 require 'factory_girl_rails'
 require 'faker'
 
+
+# old, needs to be updated
+
+
 User.destroy_all
 Article.destroy_all
 Admin.destroy_all
